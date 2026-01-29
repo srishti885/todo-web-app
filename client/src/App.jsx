@@ -5,8 +5,8 @@ import LandingPage from './pages/LandingPage';
 import TaskPortal from './pages/TaskPortal'; 
 
 // DYNAMIC API CONFIGURATION 
-// Ye line .env se URL uthayegi, agar .env nahi mila toh localhost use karegi
-const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+// Updated logic to support both Vite and Create React App environments
+const API_URL = (import.meta.env && import.meta.env.VITE_BACKEND_URL) || process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
 
 function App() {
   const [user, setUser] = useState(null);
