@@ -23,4 +23,14 @@ router.get('/:email', async (req, res) => {
   }
 });
 
+// DELETE ROUTE ADDED BELOW
+router.delete('/:id', async (req, res) => {
+  try {
+    await Board.findByIdAndDelete(req.params.id);
+    res.status(200).json("Board deleted");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
