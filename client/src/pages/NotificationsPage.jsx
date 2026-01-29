@@ -13,7 +13,7 @@ const NotificationsPage = ({ userEmail }) => {
   const [isScanning, setIsScanning] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // --- 🛠️ MERN BACKEND ENGINE: FETCH FROM MONGODB ---
+  // ---  MERN BACKEND ENGINE: FETCH FROM MONGODB ---
   const fetchAlerts = useCallback(async () => {
     if (!userEmail) {
       setLoading(false);
@@ -83,7 +83,7 @@ const NotificationsPage = ({ userEmail }) => {
     fetchAlerts();
   }, [fetchAlerts]);
 
-  // --- ⚡ BUTTON HANDLERS ---
+  // ---  BUTTON HANDLERS ---
   const handleRefresh = () => fetchAlerts();
 
   const handleSystemScan = () => {

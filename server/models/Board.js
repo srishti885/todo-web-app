@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const BoardSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  userEmail: { type: String, required: true }, // Auth requirement ke liye [cite: 4]
+  userEmail: { type: String, required: true }, // Auth requirement ke liye 
   createdAt: { type: Date, default: Date.now }
 });
 

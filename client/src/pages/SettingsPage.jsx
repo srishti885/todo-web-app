@@ -18,7 +18,7 @@ const SettingsPage = ({ userEmail }) => {
    alerts: true
  });
 
- // --- 🔒 SECURITY STATE ---
+ // ---  SECURITY STATE ---
  const [passwords, setPasswords] = useState({ current: '', new: '' });
 
  const applyTheme = (themeName) => {

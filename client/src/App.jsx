@@ -4,7 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import LandingPage from './pages/LandingPage';
 import TaskPortal from './pages/TaskPortal'; 
 
-// --- DYNAMIC API CONFIGURATION ---
+// DYNAMIC API CONFIGURATION 
 // Ye line .env se URL uthayegi, agar .env nahi mila toh localhost use karegi
 const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
 

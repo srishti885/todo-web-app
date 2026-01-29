@@ -12,16 +12,15 @@ const Ticket = require('./models/Ticket');
 
 const app = express();
 
-// --- DYNAMIC CORS SETUP ---
-// Ye logic local aur production dono ko handle karega
+// DYNAMIC CORS SETUP 
 const allowedOrigins = [
   'http://localhost:3000', // Local development
-  process.env.FRONTEND_URL  // Hosting URL (jo tum .env mein daloge)
+  process.env.FRONTEND_URL  // Hosting URL 
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps or curl requests)
+    // allow requests with no origin
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
       const msg = 'The CORS policy for this site does not allow access from the specified Origin.';

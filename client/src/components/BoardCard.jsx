@@ -7,7 +7,7 @@ const BoardCard = ({ board }) => {
   const [todos, setTodos] = useState([]);
   const [task, setTask] = useState('');
   
-  // --- 🧠 AUTO-SUGGESTION STATE ---
+  //  AUTO-SUGGESTION STATE 
   const [localSuggestions, setLocalSuggestions] = useState([]);
   const quickActions = ["Review Notes", "Update Status", "Send Email", "Research", "Meeting"];
 
@@ -91,7 +91,7 @@ const BoardCard = ({ board }) => {
           </button>
         </form>
 
-        {/* --- 💡 INLINE AUTO-SUGGESTION DROPDOWN --- */}
+        {/* ---  INLINE AUTO-SUGGESTION DROPDOWN --- */}
         {localSuggestions.length > 0 && (
           <div className="absolute top-full left-0 w-full mt-1 bg-white/90 backdrop-blur-md border border-white/20 rounded-xl shadow-xl z-30 overflow-hidden">
             {localSuggestions.map((s, i) => (

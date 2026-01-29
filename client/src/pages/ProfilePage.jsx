@@ -20,7 +20,7 @@ const ProfilePage = ({ userEmail }) => {
     progressData: { architect: 0, executioner: 0, king: 0 }
   });
 
-  // --- 🛰️ MERN DATA FETCH ---
+  // ---  MERN DATA FETCH ---
   useEffect(() => {
     const fetchProfileData = async () => {
       if (!userEmail) return;
@@ -52,7 +52,7 @@ const ProfilePage = ({ userEmail }) => {
     fetchProfileData();
   }, [userEmail]);
 
-  // --- 📷 LIVE CAMERA & SAVE LOGIC ---
+  // ---  LIVE CAMERA & SAVE LOGIC ---
   const startCamera = async () => {
     setIsCameraActive(true);
     try {

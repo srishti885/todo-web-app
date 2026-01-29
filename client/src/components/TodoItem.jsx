@@ -1,5 +1,5 @@
 import React from 'react';
-// 1. Alias barkaraar hai
+// 1. Alias 
 import { Lock as LockIcon, CheckCircle, Trash2, ChevronRight, Fingerprint, ShieldAlert } from 'lucide-react';
 
 const TodoItem = ({ todo, isLocked, toggleStatus, deleteTodo }) => {

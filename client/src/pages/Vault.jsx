@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchBoards, createBoard, deleteBoard } from '../api'; // Added deleteBoard API import
+import { fetchBoards, createBoard, deleteBoard } from '../api'; 
 import BoardCard from '../components/BoardCard';
 import { auth } from '../firebase';
 import { 
@@ -39,12 +39,11 @@ const Vault = ({ userEmail }) => {
     }
   };
 
-  // ---  DELETE LOGIC FIXED ---
+  // DELETE LOGIC
   const handleDeleteBoard = async (boardId) => {
     if (window.confirm("ARE YOU SURE YOU WANT TO TERMINATE THIS NODE?")) {
       try {
         await deleteBoard(boardId);
-        // Instant state update for better UX
         setBoards(prev => prev.filter(b => b._id !== boardId));
         loadBoards(); // Re-sync with server
       } catch (err) {
