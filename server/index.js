@@ -15,6 +15,7 @@ const app = express();
 // DYNAMIC CORS SETUP 
 const allowedOrigins = [
   'http://localhost:3000', // Local development
+  'http://localhost:5173', // Vite default port
   process.env.FRONTEND_URL  // Hosting URL 
 ];
 
@@ -28,6 +29,7 @@ app.use(cors({
     }
     return callback(null, true);
   },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
 
