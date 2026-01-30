@@ -1,9 +1,11 @@
 #### TASKVAULT - ADVANCED TASK MANAGEMENT ARCHITECTURE
 ### PROJECT DESCRIPTION
-TaskVault is a high-performance full-stack web application designed for seamless task orchestration. It features a zero-knowledge architecture with a focus on speed, security, and real-time data synchronization. The system allows users to manage multiple project boards and nested tasks through a secure, responsive interface.
+TaskVault is a high-performance full-stack web application designed for seamless task orchestration. It features a zero-knowledge architecture with a focus on speed, security, and real-time data synchronization. The system allows users to manage multiple project boards and nested tasks through a secure, responsive interface integrated with Artificial Intelligence for smart task decomposition.
 
 ## CORE FEATURES
 User Authentication: Secure login and signup via Firebase with Google OAuth support.
+
+AI Task Intelligence: Integration with Hugging Face Inference API (Llama models) to suggest contextual tasks and generate logical sub-tasks based on board category.
 
 Multi-Board System: Capability to create and categorize tasks into different organizational boards.
 
@@ -13,9 +15,7 @@ Persistence: All data is stored in MongoDB Atlas ensuring data availability acro
 
 Dynamic UI: Responsive dashboard with high-end glassmorphism design and custom CSS animations.
 
-Security: Protected routes and encrypted key handling for user privacy.
-
-Ticket System: Integrated API endpoint for reporting technical issues or feedback.
+Security: Protected routes and encrypted key handling for user privacy using environment variables.
 
 ## TECH STACK
 Frontend: React.js with Tailwind CSS and Lucide Icons.
@@ -23,6 +23,8 @@ Frontend: React.js with Tailwind CSS and Lucide Icons.
 Backend: Node.js and Express.js framework.
 
 Database: MongoDB for structured task storage.
+
+AI Engine: Hugging Face Inference API for natural language task generation.
 
 Authentication: Firebase Auth (Email and Google).
 
@@ -32,67 +34,33 @@ Styling: Custom CSS animations and Glassmorphic components.
 The application follows a logical progression from initialization to data persistence:
 
 # PHASE 1: INITIALIZATION AND AUTHENTICATION
-The workflow begins at the TaskVault Landing Interface. The system initiates authentication through two primary vectors:
+The system initiates authentication through two primary vectors: Manual Entry: Users utilize credentials to establish a secure session. OAuth 2.0: Users can opt for Google Sync to bypass manual entry. Once authenticated, the Firebase Auth state triggers a redirect to the main Dashboard environment.
 
-Manual Entry: Users utilize the pre-configured credentials (t@gmail.com / 1234abc@q) to establish a link.
+# PHASE 2: AI-POWERED TASK DECOMPOSITION
+When a task is created, the system can interface with the Hugging Face AI Engine: The backend sends the task context to the AI model. The AI returns a structured set of sub-tasks relevant to the specific board (e.g., Study, Gym, or Work). Tasks are marked with an 'isSubTask' boolean to maintain visual hierarchy without hardcoded symbols.
 
-OAuth 2.0: Users can opt for Google Biometric Sync to bypass manual key entry.
+# PHASE 3: DATA NODE SYNCHRONIZATION
+Upon entering the Dashboard, the system executes a GET request to the Node.js backend: The backend verifies user identity and fetches specific boards from the MongoDB cluster. The state manager in React populates the UI with real-time data nodes.
 
-Once authenticated, the Firebase Auth state triggers a redirect to the main Dashboard environment.
+# PHASE 4: BOARD AND TASK MANAGEMENT (CRUD)
+Create Node: User initializes a new board via POST request. Task Deployment: Users append tasks within boards managed through PUT/POST operations. Update/Modify: Real-time synchronization of task descriptions and completion status. Termination: DELETE requests remove data from the persistent storage layer.
 
-# PHASE 2: DATA NODE SYNCHRONIZATION
-Upon entering the Dashboard, the system executes a GET request to the Node.js backend:
-
-The backend verifies the user identity and fetches specific boards associated with that account from the MongoDB cluster.
-
-The state manager in React populates the UI with real-time data nodes.
-
-# PHASE 3: BOARD AND TASK MANAGEMENT (CRUD)
-Users interact with the system through the following operational flow:
-
-Create Node: User initializes a new board. A POST request is sent to the server, creating a new document in the boards collection.
-
-Task Deployment: Within a specific board, users can append tasks. Each task is an object within the board array, managed through PUT operations.
-
-Update/Modify: Users can edit task descriptions or toggle completion status, triggering immediate synchronization with the database.
-
-Termination: Deleting a task or board sends a DELETE request to the API, clearing the data from the persistent storage layer.
-
-# ADAPTIVE ENVIRONMENT CONFIGURATION
-The backend is architected to be environment-agnostic, allowing it to switch between local and production modes dynamically:
-
-# PORT RESOLUTION
-The server utilizes 'process.env.PORT' to interface with cloud hosting providers while defaulting to port 5000 for local development cycles.
-
-# DYNAMIC CORS POLICY
-Security headers are generated based on a whitelist strategy. The system permits 'localhost:3000' during active development and switches to the 'FRONTEND_URL' specified in the environment vault upon deployment.
+## ADAPTIVE ENVIRONMENT CONFIGURATION
+The backend is architected to be environment-agnostic, allowing it to switch between local and production modes dynamically: The server utilizes process.env.PORT for cloud hosting and defaults to 5000 for local development. Security headers are generated based on a whitelist strategy, permitting localhost during development and the FRONTEND_URL in production.
 
 ## INSTALLATION AND SETUP
-Clone the repository to your local system.
+Clone the repository.
 
-Navigate to the server directory: cd server npm install npm start
+Server Setup: cd server, npm install, npm start.
 
-Navigate to the client directory: cd client npm install npm start
+Client Setup: cd client, npm install, npm run dev.
 
 ## ENVIRONMENT VARIABLES
-Configure the following in a .env file within the server directory:
+Configure the following in your environment vault:
 
-PORT = 5000
+Backend: PORT, MONGO_URI, HF_TOKEN, FRONTEND_URL
 
-MONGO_URI = your_mongodb_connection_string
-
-FRONTEND_URL = your_deployed_frontend_url
-
-## AUTHENTICATION CREDENTIALS
-For manual testing and evaluation, use the following identifiers:
-
-# Identifier: t@gmail.com
-
-# Encryption Key: 1234abc@q
+Frontend: VITE_FIREBASE_API_KEY, VITE_FIREBASE_PROJECT_ID, VITE_BACKEND_URL_PROD
 
 ## SECURITY AND GIT PRACTICES
-The repository follows strict data exclusion policies:
-
-Sensitive Data Protection: Environment vaults and Firebase secret keys are explicitly excluded via a multi-tier .gitignore strategy.
-
-Dependency Management: Node modules and build artifacts are ignored to maintain a clean version control history.
+Sensitive Data Protection: Environment vaults and Firebase secret keys are explicitly excluded via a .gitignore strategy. Dependency Management: Node modules and build artifacts are ignored to maintain a clean version control history.
