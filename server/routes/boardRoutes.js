@@ -1,33 +1,47 @@
 const express = require('express');
 const router = express.Router();
-const Board = require('../models/Board');
+const Todo = require('../models/Todo');
 
-// Create a Board (POST)
+// Create a Todo within a board (POST) 
 router.post('/', async (req, res) => {
   try {
-    const newBoard = new Board(req.body);
-    const savedBoard = await newBoard.save();
-    res.status(201).json(savedBoard);
+    const newTodo = new Todo(req.body);
+    const savedTodo = await newTodo.save();
+    res.status(201).json(savedTodo);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-// Get all Boards for a user (GET)
-router.get('/:email', async (req, res) => {
+// Get all Todos for a specific board (GET) 
+router.get('/:boardId', async (req, res) => {
   try {
-    const boards = await Board.find({ userEmail: req.params.email });
-    res.status(200).json(boards);
+    const todos = await Todo.find({ boardId: req.params.boardId });
+    res.status(200).json(todos);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-// DELETE ROUTE ADDED BELOW
+// Update Todo (PUT)
+router.put('/:id', async (req, res) => {
+  try {
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      req.params.id, 
+      { $set: req.body }, 
+      { new: true }
+    );
+    res.status(200).json(updatedTodo);
+  } catch (err) { 
+    res.status(500).json(err); 
+  }
+});
+
+// Delete a Todo(DELETE)
 router.delete('/:id', async (req, res) => {
   try {
-    await Board.findByIdAndDelete(req.params.id);
-    res.status(200).json("Board deleted");
+    await Todo.findByIdAndDelete(req.params.id);
+    res.status(200).json("Todo deleted.");
   } catch (err) {
     res.status(500).json(err);
   }

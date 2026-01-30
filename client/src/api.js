@@ -27,4 +27,7 @@ export const updateTodo = (id, updatedData) => API.put(`/todos/${id}`, updatedDa
 // Task delete karne ke liye
 export const deleteTodo = (id) => API.delete(`/todos/${id}`);
 
+// --- UPDATE BOARD ADDED BELOW ---
+export const updateBoard = (id, boardData) => API.put(`/boards/${id}`, boardData);
+
 export default API;

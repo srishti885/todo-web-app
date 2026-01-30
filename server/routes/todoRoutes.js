@@ -5,6 +5,7 @@ const Todo = require('../models/Todo');
 // Create a Todo within a board (POST) 
 router.post('/', async (req, res) => {
   try {
+    // Frontend se 'isSubTask' boolean flag yahan req.body mein aayega
     const newTodo = new Todo(req.body);
     const savedTodo = await newTodo.save();
     res.status(201).json(savedTodo);
@@ -23,13 +24,17 @@ router.get('/:boardId', async (req, res) => {
   }
 });
 
-// Update Todo status(PUT)
+// Update Todo (Status ya Task Text) - Single Route is enough
 router.put('/:id', async (req, res) => {
   try {
-    const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      req.params.id, 
+      { $set: req.body }, 
+      { new: true }
+    );
     res.status(200).json(updatedTodo);
-  } catch (err) {
-    res.status(500).json(err);
+  } catch (err) { 
+    res.status(500).json(err); 
   }
 });
 
